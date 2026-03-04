@@ -1,6 +1,7 @@
+#include "color.h"
+
 #include <cstdlib>
 #include <iostream>
-#include <ostream>
 #include <unistd.h>
 
 using namespace std;
@@ -13,7 +14,7 @@ namespace pterm {
     int _frameRate = 60;
     int frameCount = 0;
 
-    char* framebuffer = nullptr;
+    colored_char* framebuffer = nullptr;
 
     void size(int width, int height) {
         pterm::width = width;
@@ -21,11 +22,11 @@ namespace pterm {
 
         if (framebuffer != nullptr) free(framebuffer);
 
-        framebuffer = (char*) malloc(width * height * sizeof(char));
+        framebuffer = (colored_char*) malloc(width * height * sizeof(colored_char));
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                framebuffer[y * width + x] = ' ';
+                framebuffer[y * width + x] = colored_char{' ', color{.r = 255, .g = 255, .b = 255}};
             }
         }
     }
@@ -45,7 +46,9 @@ namespace pterm {
             
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
-                    cout << framebuffer[y * width + x];
+                    colored_char pixel = framebuffer[y * width + x];
+                    cout << "\x1b[38;2;" << (int)pixel.foreColor.r << ";" << (int)pixel.foreColor.g << ";" << (int)pixel.foreColor.b << "m";
+                    cout << pixel.character;
                 }
                 cout << '\n';
             }

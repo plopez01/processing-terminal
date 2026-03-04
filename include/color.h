@@ -2,18 +2,24 @@
 
 namespace pterm {
     typedef union {
-    int color;
+        int color;
 
-    struct {
-        unsigned char a;
-        unsigned char r;
-        unsigned char g;
-        unsigned char b;
-    };
-} color;
+        struct {
+            unsigned char a;
+            unsigned char r;
+            unsigned char g;
+            unsigned char b;
+        };
+    } color;
+
+    typedef struct {
+        char character;
+        color foreColor;
+    } colored_char;
 
     extern char _brush;
     extern color _fill;
+    extern color _stroke;
 
     void brush(char c);
 
@@ -26,6 +32,8 @@ namespace pterm {
     void fill(unsigned char r, unsigned char g, unsigned char b);
 
 
-    void _setForegroundTrueColor(color c);
+    void stroke(color rgba);
+    void stroke(unsigned char gray);
+    void stroke(unsigned char r, unsigned char g, unsigned char b);
 }
 
