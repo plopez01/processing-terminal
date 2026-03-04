@@ -1,24 +1,25 @@
 #include "color.h"
 #include "environment.h"
+#include "shape.h"
 
 #include <iostream>
 
-using namespace std;
-
+using namespace pterm;
 
 void setup() {
-    size(10, 5);
+    size(140, 40);
 }
 
 void draw() {
-    cout << frameCount << endl;
-    background(frameCount % 256, 255, 255);
+    std::cout << frameCount << std::endl;
+    fill(255, 0, 0);
+    rect(10, 10, 10, 5);
 }
 
 int main() {
 
-    cout << "Width: " << width << endl;
-    cout << "Height: " << height << endl;
+    std::cout << "Width: " << width << std::endl;
+    std::cout << "Height: " << height << std::endl;
 
     run(setup, draw);
 }

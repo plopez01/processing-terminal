@@ -1,11 +1,15 @@
-extern int width;
-extern int height;
+#pragma once
 
-extern int frameCount;
+namespace pterm {
+    extern int width;
+    extern int height;
 
-extern char* framebuffer;
+    extern int frameCount;
 
-void size(int width, int height);
-void frameRate(int fps);
+    extern char* framebuffer;
 
-void run(void (*setup)(), void (*draw)());
+    void size(int width, int height);
+    void frameRate(int fps);
+
+    void run(void (*setup)(), void (*draw)());
+}

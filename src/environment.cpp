@@ -5,51 +5,54 @@
 
 using namespace std;
 
-int width = 32;
-int height = 32;
+namespace pterm {
 
-int _frameRate = 60;
-int frameCount = 0;
+    int width = 32;
+    int height = 32;
 
-char* framebuffer = nullptr;
+    int _frameRate = 60;
+    int frameCount = 0;
 
-void size(int width, int height) {
-    ::width = width;
-    ::height = height;
+    char* framebuffer = nullptr;
 
-    if (framebuffer != nullptr) free(framebuffer);
+    void size(int width, int height) {
+        pterm::width = width;
+        pterm::height = height;
 
-    framebuffer = (char*) malloc(width * height * sizeof(char));
+        if (framebuffer != nullptr) free(framebuffer);
 
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            framebuffer[y * width + x] = ' ';
-        }
-    }
-}
+        framebuffer = (char*) malloc(width * height * sizeof(char));
 
-void frameRate(int fps) {
-    _frameRate = fps;
-}
-
-void run(void (*setup)(), void (*draw)()) {
-    setup();
-
-    while (1) {
-        cout << "\x1b[2J"; // Clear screen
-        cout << "\x1b[H"; // Move cursor to home (0, 0)
-
-        draw();
-        
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                cout << framebuffer[y * width + x];
+                framebuffer[y * width + x] = ' ';
             }
-            cout << '\n';
         }
-        cout.flush();
-        
-        usleep(1e6 / _frameRate);
-        frameCount++;
+    }
+
+    void frameRate(int fps) {
+        _frameRate = fps;
+    }
+
+    void run(void (*setup)(), void (*draw)()) {
+        setup();
+
+        while (1) {
+            cout << "\x1b[2J"; // Clear screen
+            cout << "\x1b[H"; // Move cursor to home (0, 0)
+
+            draw();
+            
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    cout << framebuffer[y * width + x];
+                }
+                cout << '\n';
+            }
+            cout.flush();
+            
+            usleep(1e6 / _frameRate);
+            frameCount++;
+        }
     }
 }
