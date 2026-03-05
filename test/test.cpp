@@ -8,11 +8,13 @@ using namespace pterm;
 
 void setup() {
     size(140, 40);
+    colorMode(HSB, 360, 255, 255);
 }
 
 void draw() {
     std::cout << frameCount << std::endl;
-    fill(255, 0, 0);
+
+    fill(frameCount % 360, 255, 255);
     rect(10, 10, 8, 5);
 
     stroke(0, 255, 0);
