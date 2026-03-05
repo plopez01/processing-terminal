@@ -4,14 +4,22 @@
 
 namespace pterm {
     void point(int x, int y) {
-        framebuffer[y * width + x] = colored_char{_brush, _stroke};
+        if  (_stroke) {
+            framebuffer[y * width + x] = colored_char{_strokeBrush, _strokeColor};
+        }
     }
 
 
     void rect(int x, int y, int w, int h) {
         for (int j = y; j < y + h; j++) {
             for (int i = x; i < x + w; i++) {
-                framebuffer[j * width + i] = colored_char{_brush, _fill};
+                // If edge
+                if (_stroke && (i == x || i == x + w - 1 || j == y || j == y + h - 1)) {
+                    framebuffer[j * width + i] = colored_char{_strokeBrush, _strokeColor};
+                }
+                else if (_fill) {
+                    framebuffer[j * width + i] = colored_char{_fillBrush, _fillColor};
+                }
             }
         }
     }

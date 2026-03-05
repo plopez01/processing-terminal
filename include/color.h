@@ -25,11 +25,16 @@ namespace pterm {
     };
 
 
-    extern char _brush;
-    extern color _fill;
-    extern color _stroke;
+    extern bool _fill;
+    extern char _fillBrush;
+    extern color _fillColor;
 
-    void brush(char c);
+    extern bool _stroke;
+    extern char _strokeBrush;
+    extern color _strokeColor;
+
+    void fillBrush(char c);
+    void strokeBrush(char c);
 
     color new_color(float r, float g, float b);
     color new_color(float gray);
@@ -41,11 +46,13 @@ namespace pterm {
     void fill(color rgba);
     void fill(float gray);
     void fill(float r, float g, float b);
+    void noFill();
 
 
     void stroke(color rgba);
     void stroke(float gray);
     void stroke(float r, float g, float b);
+    void noStroke();
 
     void colorMode(ColorMode mode);
     void colorMode(ColorMode mode, float max);

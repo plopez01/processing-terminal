@@ -7,21 +7,17 @@
 using namespace pterm;
 
 void setup() {
-    size(140, 40);
-    colorMode(HSB, 360, 255, 255);
+    size(80, 40);
 }
 
 void draw() {
     std::cout << frameCount << std::endl;
+    colorMode(HSB);
 
-    fill(frameCount % 360, 255, 255);
-    rect(10, 10, 8, 5);
-
-    stroke(0, 255, 0);
-    point(20, 10);
-
-    fill(0, 0, 255);
-    rect(20, 20, 6, 3);
+    fillBrush('O');
+    strokeBrush('#');
+    stroke(frameCount % 255, 255, 255);
+    rect(10, 10, 15, 5);
 }
 
 int main() {

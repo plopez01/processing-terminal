@@ -3,9 +3,13 @@
 
 namespace pterm {
 
-    char _brush = '@';
-    color _fill = {.r = 255, .g = 255, .b = 255};
-    color _stroke = {.r = 255, .g = 255, .b = 255};
+    bool _fill = true;
+    char _fillBrush = '@';
+    color _fillColor = {.r = 255, .g = 255, .b = 255};
+    
+    bool _stroke = true;
+    char _strokeBrush = '@';
+    color _strokeColor = {.r = 255, .g = 255, .b = 255};
 
     float rangeR = 255;
     float rangeG = 255;
@@ -13,8 +17,12 @@ namespace pterm {
 
     ColorMode _colorMode = RGB;
 
-    void brush(char c) {
-        _brush = c;
+    void fillBrush(char c) {
+        _fillBrush = c;
+    }
+
+    void strokeBrush(char c) {
+        _strokeBrush = c;
     }
 
     color new_color(float r, float g, float b) {
@@ -34,7 +42,7 @@ namespace pterm {
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                framebuffer[y * width + x] = colored_char{_brush, rgba};
+                framebuffer[y * width + x] = colored_char{_fillBrush, rgba};
             }
         }
     }
@@ -50,7 +58,7 @@ namespace pterm {
 
     void fill(color rgba) {
         if (_colorMode == HSB) rgba = hsv2rgb(rgba);
-        _fill = rgba;
+        _fillColor = rgba;
     }
 
     void fill(float gray) {
@@ -61,10 +69,15 @@ namespace pterm {
         fill(new_color(r, g, b));
     }
 
+    void noFill() {
+        _fill = false;
+    }
+
 
     void stroke(color rgba) {
         if (_colorMode == HSB) rgba = hsv2rgb(rgba);
-        _stroke = rgba;
+        _strokeColor = rgba;
+        _stroke = true;
     }
 
     void stroke(float gray) {
@@ -73,6 +86,10 @@ namespace pterm {
 
     void stroke(float r, float g, float b) {
         stroke(new_color(r, g, b));
+    }
+
+    void noStroke() {
+        _stroke = false;
     }
 
     void colorMode(ColorMode mode) {
