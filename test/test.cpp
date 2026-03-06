@@ -1,6 +1,7 @@
 #include "color.h"
 #include "environment.h"
 #include "shape.h"
+#include "math.h"
 
 #include <iostream>
 
@@ -17,7 +18,7 @@ void draw() {
     fillBrush('O');
     strokeBrush('#');
     stroke(frameCount % 255, 255, 255);
-    rect(10, 10, 15, 5);
+    rect(random(0, 40), random(0, 40), 15, 5);
 }
 
 int main() {
