@@ -13,12 +13,12 @@ void setup() {
 
 void draw() {
     std::cout << frameCount << std::endl;
-    colorMode(HSB);
+    colorMode(HSB, 255, 255, 255);
 
-    fillBrush('O');
-    strokeBrush('#');
-    stroke(frameCount % 255, 255, 255);
-    rect(random(0, 40), random(0, 40), 15, 5);
+    stroke(255, 255, 255);
+    fill(frameCount % 255, 255, 255);
+    ellipse(10, 10, 20, 10);
+
 }
 
 int main() {

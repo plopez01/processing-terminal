@@ -9,6 +9,7 @@ namespace pterm {
     extern int frameCount;
 
     extern colored_char* framebuffer;
+    void _writeFramebuffer(int x, int y, colored_char c);
 
     void size(int width, int height);
     void frameRate(int fps);

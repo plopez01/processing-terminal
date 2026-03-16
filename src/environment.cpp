@@ -16,6 +16,14 @@ namespace pterm {
 
     colored_char* framebuffer = nullptr;
 
+    void _writeFramebuffer(int x, int y, colored_char c) {
+        int index = y * width + x;
+        if (x < 0 || x >= width) return;
+        if (y < 0 || y >= height) return;
+        
+        framebuffer[index] = c;
+    }
+
     void size(int width, int height) {
         pterm::width = width;
         pterm::height = height;
